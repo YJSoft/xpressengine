@@ -1,0 +1,57 @@
+{
+    "name": "xpressengine-plugin/page",
+    "description": "XpressEngine's page plugin for bundle (XE)",
+    "keywords": [
+        "xpressengine bundle",
+        "XE page",
+        "Xpressengine3 page"
+    ],
+    "version": "0.9.0",
+    "authors": [
+        {
+            "name": "XE Developers",
+            "email": "developers@xpressengine.com",
+            "homepage": "http://xpressengine.io",
+            "role": "Developer"
+        }
+    ],
+    "license": "LGPL-2.1",
+    "type": "xpressengine-plugin",
+    "extra": {
+        "xpressengine": {
+            "title": "Page",
+            "icon": "icon.png",
+            "component": {
+                "module/page@page": {
+                    "class": "Xpressengine\\Plugins\\Page\\Module\\Page",
+                    "name": "Simple Page",
+                    "description": "basic Page",
+                    "screenshot": [
+                        "/plugins/page/assets/img/screenshots/page1.png",
+                        "/plugins/page/assets/img/screenshots/page2.png"
+                    ]
+                },
+                "module/page@page/skin/page@default": {
+                    "class": "Xpressengine\\Plugins\\Page\\Skin\\DefaultSkin",
+                    "name": "Page Default Skin",
+                    "description": "Page Module Default Skin",
+                    "screenshot" : []
+                },
+                "module/page@page/settingsSkin/page@default": {
+                    "class": "Xpressengine\\Plugins\\Page\\Skin\\SettingsSkin",
+                    "name": "Page Default Skin for Manager",
+                    "description": "Page Default Skin for Manager",
+                    "screenshot" : []
+                }
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Xpressengine\\Plugins\\Page\\": "src/"
+        }
+    },
+    "require": {
+        "xpressengine-plugin/ckeditor": "*"
+    }
+}

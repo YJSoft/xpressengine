@@ -1,0 +1,50 @@
+{
+  "name": "xpressengine-plugin/news_client",
+  "description": "This Package is Xpressengine Plugin - News_Client.",
+  "keywords": [
+    "xpressengine",
+    "plugin"
+  ],
+  "license": "LGPL",
+  "version": "0.9.0",
+  "type": "xpressengine-plugin",
+  "support": {
+    "email": "email@email.com"
+  },
+  "authors": [
+    {
+      "name": "XE Team",
+      "email": "developers@xpressengine.com",
+      "homepage": "http://xpressengine.io",
+      "role": "Developer"
+    }
+  ],
+  "extra": {
+    "xpressengine": {
+      "title": "News Client",
+      "icon": "icon.png",
+      "component": {
+        "widget/news_client@news": {
+          "class": "Xpressengine\\Plugins\\NewsClient\\NewsWidget",
+          "name": "새소식 위젯",
+          "description": "대시보드용 위젯 입니다.",
+          "screenshot" : []
+        },
+        "news_client/settingsSkin/news_client@default": {
+          "class": "Xpressengine\\Plugins\\NewsClient\\ManagerSkin",
+          "name": "관리자 스킨",
+          "description": "관리자 스킨 입니다.",
+          "screenshot" : []
+        }
+      }
+    }
+  },
+  "require": {
+    "guzzlehttp/guzzle": "~6.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Xpressengine\\Plugins\\NewsClient\\": "src/"
+    }
+  }
+}

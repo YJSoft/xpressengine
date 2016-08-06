@@ -1,0 +1,47 @@
+{
+  "name": "xpressengine-plugin/alice",
+  "description": "This Package is Xpressengine Plugin - Alice Theme.",
+  "keywords": [
+    "xpressengine",
+    "plugin",
+    "theme",
+    "alice"
+  ],
+  "license": "LGPL-2.1",
+  "version": "0.9.2",
+  "type": "xpressengine-plugin",
+  "authors": [
+    {
+      "name": "xpressengine",
+      "email": "developers@xpressengine.com",
+      "homepage": "https://xpressengine.io",
+      "role": "Developer"
+    }
+  ],
+  "extra": {
+    "xpressengine": {
+      "title": "Alice Theme",
+      "screenshots": [
+        "screenshots/main.png",
+        "screenshots/sub.png",
+        "screenshots/site.png"
+      ],
+      "icon": "icon.png",
+      "component": {
+        "theme/alice@alice": {
+          "class": "Xpressengine\\Plugins\\Alice\\Theme\\Alice",
+          "name": "Alice",
+          "description": "The First Theme for XpressEngine3",
+          "screenshot": "/plugins/alice/screenshots/main.png"
+        }
+      }
+    }
+  },
+  "require": {
+  },
+  "autoload": {
+    "psr-4": {
+      "Xpressengine\\Plugins\\Alice\\": "src/"
+    }
+  }
+}

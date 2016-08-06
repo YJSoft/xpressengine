@@ -1,0 +1,51 @@
+{
+  "name": "xpressengine-plugin/ckeditor",
+  "description": "XpressEngine's plugin for bundle (XE)",
+  "keywords": ["xpressengine bundle", "XE CkEditor"],
+  "version": "0.9.2",
+  "support": {
+    "email": "developers@xpressengine.com"
+  },
+  "authors": [
+    {
+      "name": "XE Developers",
+      "email": "developers@xpressengine.com",
+      "homepage": "http://xpressengine.io",
+      "role": "Developer"
+    }
+  ],
+  "license": "LGPL-2.1",
+  "type": "xpressengine-plugin",
+  "extra": {
+    "xpressengine": {
+      "title": "CkEditor",
+      "icon": "icon.png",
+      "component": {
+        "editor/ckeditor@ckEditor": {
+          "class": "Xpressengine\\Plugins\\CkEditor\\Editors\\CkEditor",
+          "name": "CkEditor",
+          "description": "XE 에서 사용할 기본 에디터"
+        },
+        "FieldType/ckeditor@CkEditor": {
+          "class": "Xpressengine\\Plugins\\CkEditor\\FieldType\\CkEditor",
+          "name": "CkEditor",
+          "description": "에디터 Dynamic field"
+        },
+        "editor/ckeditor@ckEditor/plugin/ckeditor@default": {
+          "class": "Xpressengine\\Plugins\\CkEditor\\Extension\\CkEditorPlugin",
+          "name": "CkEditor 플러그인",
+          "description": "XE 에서 CkEditor 에 사용 할 플러그인."
+        }
+      }
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0",
+    "mockery/mockery": "dev-master@dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "Xpressengine\\Plugins\\CkEditor\\": "src/"
+    }
+  }
+}

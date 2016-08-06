@@ -1,0 +1,97 @@
+{
+  "name": "xpressengine-plugin/board",
+  "description": "XpressEngine's plugin for bundle (XE)",
+  "keywords": ["xpressengine bundle", "XE board", "Xpressengine3 board"],
+  "version": "0.9.2",
+  "support": {
+    "email": "developers@xpressengine.com"
+  },
+  "authors": [
+    {
+      "name": "XE Developers",
+      "email": "developers@xpressengine.com",
+      "homepage": "http://xpressengine.io",
+      "role": "Developer"
+    }
+  ],
+  "license": "LGPL-2.1",
+  "type": "xpressengine-plugin",
+  "extra": {
+    "xpressengine": {
+      "title": "게시판",
+      "icon": "icon.png",
+      "component": {
+        "module/board@board": {
+          "class": "Xpressengine\\Plugins\\Board\\Modules\\Board",
+          "name": "Board",
+          "description": "XE Board 모듈",
+          "screenshot" : [
+            "/plugins/board/assets/img/screenshots/menuType1.png"
+          ]
+        },
+        "module/board@board/skin/board@default": {
+          "class": "Xpressengine\\Plugins\\Board\\Skins\\DefaultSkin",
+          "name": "게시판 기본 스킨",
+          "description": "게시판 기본 스킨.",
+          "screenshot" : [
+            "/plugins/board/assets/img/screenshots/userDefaultSkin1.png",
+            "/plugins/board/assets/img/screenshots/userDefaultSkin2.png"
+          ]
+        },
+        "module/board@board/skin/board@gallery": {
+          "class": "Xpressengine\\Plugins\\Board\\Skins\\GallerySkin",
+          "name": "게시판 갤러리 스킨",
+          "description": "게시판 갤러리 스킨.",
+          "screenshot" : [
+            "/plugins/board/assets/img/screenshots/userDefaultSkin1.png",
+            "/plugins/board/assets/img/screenshots/userDefaultSkin2.png"
+          ]
+        },
+        "module/board@board/skin/board@blog": {
+          "class": "Xpressengine\\Plugins\\Board\\Skins\\BlogSkin",
+          "name": "게시판 블로그 스킨",
+          "description": "게시판 블로그 스킨.",
+          "screenshot" : [
+            "/plugins/board/assets/img/screenshots/userDefaultSkin1.png",
+            "/plugins/board/assets/img/screenshots/userDefaultSkin2.png"
+          ]
+        },
+        "module/board@board/settingsSkin/board@default": {
+          "class": "Xpressengine\\Plugins\\Board\\Skins\\SettingsSkin",
+          "name": "게시판 관리자 기본 스킨",
+          "description": "게시판 관리자 기본스킨",
+          "screenshot" : []
+        },
+        "FieldType/xpressengine@Category/FieldSkin/xpressengine@default": {
+          "class": "Xpressengine\\Plugins\\Board\\Skins\\DynamicField\\DesignSelectSkin",
+          "name": "Category Design select",
+          "description": ""
+        },
+        "module/board@board/toggleMenu/xpressengine@trashItem": {
+          "class": "Xpressengine\\Plugins\\Board\\ToggleMenus\\TrashItem",
+          "name": "휴지통",
+          "description": "선택한 문서를 휴지통으로 보냅니다."
+        },
+        "uiobject/board@select": {
+          "class": "Xpressengine\\Plugins\\Board\\UIObjects\\DesignSelect",
+          "name": "Design select",
+          "description": "디자인 셀렉트"
+        },
+        "uiobject/board@share": {
+          "class": "Xpressengine\\Plugins\\Board\\UIObjects\\Share",
+          "name": "Share",
+          "description": "share"
+        }
+      }
+    }
+  },
+  "require": {
+    "xpressengine-plugin/ckeditor": "*",
+    "xpressengine-plugin/comment": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Xpressengine\\Plugins\\Board\\": "src/"
+    }
+  }
+}
