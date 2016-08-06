@@ -1,0 +1,29 @@
+{
+    "name": "xpressengine/installer",
+    "type": "composer-plugin",
+    "license": "LGPL",
+    "authors": [
+        {
+            "name": "XE Team",
+            "email": "developers@xpressengine.com",
+            "homepage": "http://xpressengine.io",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Xpressengine\\Installer": "src/"
+        }
+    },
+    "extra": {
+        "class": "Xpressengine\\Installer\\XpressengineInstallerPlugin"
+    },
+    "require": {
+        "composer-plugin-api": "1.1.*"
+    },
+    "require-dev": {
+        "composer/composer": "1.1.*",
+        "phpunit/phpunit": "4.0.*",
+        "mockery/mockery": "dev-master@dev"
+    }
+}
