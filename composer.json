@@ -34,7 +34,7 @@
         "symfony/dom-crawler": "~3.3",
         "symfony/yaml": "~3.3",
         "wikimedia/composer-merge-plugin": "~2.0.1",
-        "yjsoft/installer": "master"
+        "yjsoft/installer": "master@dev"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
