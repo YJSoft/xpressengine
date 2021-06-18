@@ -20,7 +20,7 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
-        "composer/composer": "1.7.1",
+        "composer/composer": "~2.0.0",
         "ezyang/htmlpurifier": "~4.7",
         "fideloper/proxy": "~3.3",
         "google/recaptcha": "^1.2",
