@@ -34,7 +34,7 @@
         "symfony/dom-crawler": "~3.3",
         "symfony/yaml": "~3.3",
         "wikimedia/composer-merge-plugin": "~2.0.1",
-        "xpressengine/installer": "~1.1.1"
+        "yjsoft/installer": "master"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
@@ -54,6 +54,18 @@
         {
             "type": "composer",
             "url": "https://store.xehub.io"
+        },
+        {
+            "type":"package",
+            "package": {
+                "name": "yjsoft/installer",
+                "version":"master",
+                "source": {
+                    "url": "https://github.com/YJSoft/xpressengine-composer-installer.git",
+                    "type": "git",
+                    "reference":"master"
+                }
+            }
         }
     ],
     "autoload": {
