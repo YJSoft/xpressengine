@@ -13,6 +13,7 @@ jobs:
         uses: tgymnich/fork-sync@v2.0.10
         with:
           owner: xpressengine
+          token: ${{ secrets.PERSONAL_TOKEN }}
           head: master
           base: master
           pr_title: 'Sync master branch'
@@ -21,6 +22,7 @@ jobs:
         uses: tgymnich/fork-sync@v2.0.10
         with:
           owner: xpressengine
+          token: ${{ secrets.PERSONAL_TOKEN }}
           head: develop
           base: develop
           pr_title: 'Sync develop branch'
