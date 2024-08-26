@@ -28,6 +28,8 @@ jobs:
         php-version: ${{ matrix.version }}
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        ref: ${{ inputs.version }}
     - name: Get composer lockfile from R2
       continue-on-error: true
       run: wget --no-clobber --retry-connrefused --timeout=5 --tries=3 --spider https://xe3.yjsoft.xyz/artifact/${{ matrix.version }}/${{ github.ref_name }}.lock && wget --no-clobber https://xe3.yjsoft.xyz/artifact/${{ matrix.version }}/${{ github.ref_name }}.lock -O composer.lock
