@@ -64,3 +64,17 @@ jobs:
         aws_bucket: ${{ secrets.S3_BUCKET }}
         source_dir: 'dist'
         destination_dir: 'artifact/${{ matrix.version }}'
+    - name: Prepare files for latest nightly update
+      if: ${{ matrix.version == '7.2' }}
+      run: |
+        rn dist/${{ github.ref_name }}.lock
+    - name: Update latest nightly at R2
+      if: ${{ matrix.version == '7.2' }}
+      uses: shallwefootball/s3-upload-action@0d261a6f15b3b2e209dfebdecace4b100c04f95b
+      with:
+        endpoint: ${{ secrets.S3_ENDPOINT }}
+        aws_key_id: ${{ secrets.S3_ID }}
+        aws_secret_access_key: ${{ secrets.S3_KEY}}
+        aws_bucket: ${{ secrets.S3_BUCKET }}
+        source_dir: 'dist'
+        destination_dir: ''
