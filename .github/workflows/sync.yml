@@ -10,15 +10,17 @@ jobs:
     name: Sync branch
     steps:
       - name: Sync master branch
-        uses: tgymnich/fork-sync@v1.2.1
+        uses: tgymnich/fork-sync@v2.0.10
         with:
+          owner: xpressengine
           head: master
           base: master
           pr_title: 'Sync master branch'
           pr_message: 'Sync master branch to get latest commit'
       - name: Sync develop branch
-        uses: tgymnich/fork-sync@v1.2.1
+        uses: tgymnich/fork-sync@v2.0.10
         with:
+          owner: xpressengine
           head: develop
           base: develop
           pr_title: 'Sync develop branch'
