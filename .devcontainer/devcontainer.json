@@ -1,0 +1,13 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "PHP 7.4 on Ubuntu",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/base:focal",
+	"features": {
+		"ghcr.io/shyim/devcontainers-features/php:0": {
+			"installComposer": true,
+			"version": "7.4"
+		}
+	}
+}
