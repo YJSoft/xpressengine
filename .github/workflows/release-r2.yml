@@ -1,13 +1,16 @@
 name: Upload release zip to R2
 
 on:
-  push:
-    tags:
-      - '*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Tag to release'
+        required: true
+        type: string
 
 jobs:
   upload-zip:
-    name: Release ZIP (PHP ${{ matrix.version }}${{ matrix.experimental && ', experimental' || '' }})
+    name: Release v${{ inputs.version }} (PHP ${{ matrix.version }}${{ matrix.experimental && ', experimental' || '' }})
     runs-on: ubuntu-20.04
     continue-on-error: ${{ matrix.experimental }}
     strategy:
@@ -42,13 +45,12 @@ jobs:
     - name: Generate zip file and copy composer.lock
       run: |
         mkdir -p dist
-        zip -r dist/${{ github.ref_name }}.zip . -x ".git/*" "dist/*"
-        cp -f composer.lock dist/${{ github.ref_name }}.lock
-        cp -f dist/${{ github.ref_name }}.zip dist/latest.zip
+        zip -r dist/${{ inputs.version }}.zip . -x ".git/*" "dist/*"
+        cp -f dist/${{ inputs.version }}.zip dist/latest.zip
     - name: Upload build artifact to Github
       uses: actions/upload-artifact@v4.3.6
       with:
-        name: xe3-${{ github.ref_name }}-php${{ matrix.version }}
+        name: xe3-${{ inputs.version }}-php${{ matrix.version }}
         path: dist
         if-no-files-found: error
         compression-level: 0
