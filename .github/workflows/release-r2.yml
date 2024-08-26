@@ -1,0 +1,63 @@
+name: Upload release zip to R2
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  upload-zip:
+    name: Build ZIP (PHP ${{ matrix.version }}${{ matrix.experimental && ', experimental' || '' }})
+    runs-on: ubuntu-20.04
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      matrix:
+        version: ['7.2', '7.3', '7.4']
+        experimental: [false]
+        include:
+          - version: '8.0'
+            experimental: true
+
+    steps:
+    - name: Setup PHP ${{ matrix.version }}
+      uses: shivammathur/setup-php@2.31.1
+      with:
+        php-version: ${{ matrix.version }}
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Get composer lockfile from R2
+      continue-on-error: true
+      run: wget --no-clobber --retry-connrefused --timeout=5 --tries=3 --spider https://xe3.yjsoft.xyz/artifact/${{ matrix.version }}/${{ github.ref_name }}.lock && wget --no-clobber https://xe3.yjsoft.xyz/artifact/${{ matrix.version }}/${{ github.ref_name }}.lock -O composer.lock
+    - name: Get composer cache directory
+      id: composer-cache
+      run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+    - name: Cache dependencies
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ github.ref_name }}-php${{ matrix.version }}-${{ hashFiles('**/composer.lock') }}
+        restore-keys: ${{ runner.os }}-composer-${{ github.ref_name }}-php${{ matrix.version }}-
+    - name: Install Dependencies
+      run: composer install --no-ansi --no-interaction --no-progress
+    - name: Generate zip file and copy composer.lock
+      run: |
+        mkdir -p dist
+        zip -r dist/${{ github.ref_name }}.zip . -x ".git/*" "dist/*"
+        cp -f composer.lock dist/${{ github.ref_name }}.lock
+    - name: Upload dist folder to build artifact
+      uses: actions/upload-artifact@v4.3.6
+      with:
+        name: xe3-${{ github.ref_name }}-php${{ matrix.version }}
+        path: dist
+        if-no-files-found: error
+        compression-level: 0
+    - name: Upload latest develop.zip, composer.lock to R2
+      if: ${{ matrix.version == "7.2" }}
+      uses: shallwefootball/s3-upload-action@0d261a6f15b3b2e209dfebdecace4b100c04f95b
+      with:
+        endpoint: ${{ secrets.S3_ENDPOINT }}
+        aws_key_id: ${{ secrets.S3_ID }}
+        aws_secret_access_key: ${{ secrets.S3_KEY}}
+        aws_bucket: ${{ secrets.S3_BUCKET }}
+        source_dir: 'dist'
+        destination_dir: ''
