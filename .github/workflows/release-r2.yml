@@ -44,6 +44,7 @@ jobs:
         mkdir -p dist
         zip -r dist/${{ github.ref_name }}.zip . -x ".git/*" "dist/*"
         cp -f composer.lock dist/${{ github.ref_name }}.lock
+        cp -f dist/${{ github.ref_name }}.zip dist/latest.zip
     - name: Upload dist folder to build artifact
       uses: actions/upload-artifact@v4.3.6
       with:
