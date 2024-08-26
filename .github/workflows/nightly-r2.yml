@@ -37,7 +37,12 @@ jobs:
         key: ${{ runner.os }}-composer-${{ github.ref_name }}-php${{ matrix.version }}-${{ hashFiles('**/composer.lock') }}
         restore-keys: ${{ runner.os }}-composer-${{ github.ref_name }}-php${{ matrix.version }}-
     - name: Install Dependencies
+      id: composer_install
+      continue-on-error: true
       run: composer install --no-ansi --no-interaction --no-progress
+    - name: Update and Install Dependencies
+      if: ${{ steps.composer_install.outcome == 'failure' }}
+      run: composer update --no-ansi --no-interaction --no-progress && composer install --no-ansi --no-interaction --no-progress
     - name: Generate zip file and copy composer.lock
       run: |
         mkdir -p dist
