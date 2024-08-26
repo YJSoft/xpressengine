@@ -45,14 +45,14 @@ jobs:
         zip -r dist/${{ github.ref_name }}.zip . -x ".git/*" "dist/*"
         cp -f composer.lock dist/${{ github.ref_name }}.lock
         cp -f dist/${{ github.ref_name }}.zip dist/latest.zip
-    - name: Upload dist folder to build artifact
+    - name: Upload build artifact to Github
       uses: actions/upload-artifact@v4.3.6
       with:
         name: xe3-${{ github.ref_name }}-php${{ matrix.version }}
         path: dist
         if-no-files-found: error
         compression-level: 0
-    - name: Upload latest develop.zip, composer.lock to R2
+    - name: Upload release artifact to R2
       if: ${{ matrix.version == "7.2" }}
       uses: shallwefootball/s3-upload-action@0d261a6f15b3b2e209dfebdecace4b100c04f95b
       with:
