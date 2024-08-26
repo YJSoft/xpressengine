@@ -57,7 +57,7 @@ jobs:
         if-no-files-found: error
         compression-level: 0
     - name: Upload release artifact to R2
-      if: ${{ matrix.version == "7.2" }}
+      if: ${{ matrix.version == '7.2' }}
       uses: shallwefootball/s3-upload-action@0d261a6f15b3b2e209dfebdecace4b100c04f95b
       with:
         endpoint: ${{ secrets.S3_ENDPOINT }}
