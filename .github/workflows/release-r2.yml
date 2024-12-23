@@ -29,7 +29,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
-        repository: 'xpressengine/xpressengine'
         ref: ${{ inputs.version }}
     - name: Get composer lockfile from R2
       continue-on-error: true
