@@ -25,6 +25,7 @@ jobs:
     - name: Setup PHP ${{ matrix.version }}
       uses: shivammathur/setup-php@2.31.1
       with:
+        repository: 'xpressengine/xpressengine'
         php-version: ${{ matrix.version }}
     - name: Checkout code
       uses: actions/checkout@v4
