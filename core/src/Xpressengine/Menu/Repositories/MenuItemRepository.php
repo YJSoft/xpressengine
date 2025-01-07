@@ -159,16 +159,21 @@ class MenuItemRepository
     {
         return $this->cacheCall(__FUNCTION__, func_get_args(), function () use ($url, $with) {
             $parsedUrl = parse_url($url);
+            $currentHost = Arr::get($parsedUrl, 'host', '');
             $urlPath = str_replace_first('/', '', Arr::get($parsedUrl, 'path', ''));
 
             parse_str(Arr::get($parsedUrl, 'query', ''), $urlQueries);
 
             $menuItems = $this->fetchByUrlPath($urlPath, $with)
-                ->transform(static function (MenuItem $menuItem) {
+                ->transform(static function (MenuItem $menuItem) use ($currentHost) {
                     $parsedMenuItemUrl = parse_url($menuItem->url);
+                    $menuItemHost = Arr::get($parsedMenuItemUrl, 'host', '');
                     $menuItemUrlPath = Arr::get($parsedMenuItemUrl, 'path', '');
 
-                    if ($menuItemUrlPath !== '' && $menuItemUrlPath[0]  === '/') {
+                    // Skip external URLs (different domain direct link)
+                    if ($menuItemHost !== '' && $currentHost !== $menuItemHost) {
+                        $menuItemUrlPath = null;
+                    } else if ($menuItemUrlPath !== '' && $menuItemUrlPath[0] === '/') {
                         $menuItemUrlPath = str_replace_first('/', '', $menuItemUrlPath);
                     }
 
@@ -180,13 +185,23 @@ class MenuItemRepository
                     return $menuItem;
                 })
                 ->filter(static function (MenuItem $menuItem) use ($urlPath, $urlQueries) {
+                    if ($menuItem->url_path === null) {
+                        return false;
+                    }
+
                     $arrayDiff = array_diff_assoc($menuItem->url_queries, $urlQueries);
+
                     return $urlPath === $menuItem->url_path && empty($arrayDiff) === true;
                 });
 
             $containedUrlMenuItems = $menuItems->filter(
                 static function (MenuItem $menuItem) use ($urlPath, $urlQueries) {
+                    if ($menuItem->url_path === null) {
+                        return false;
+                    }
+
                     $arrayDiff = array_diff_assoc($urlQueries, $menuItem->url_queries);
+
                     return $urlPath === $menuItem->url_path && empty($arrayDiff) === true;
                 }
             );
