@@ -88,6 +88,13 @@ class ProfileController extends Controller
     {
         $this->validate($request, ['display_name' => 'required']);
 
+        $currentUser = auth()->user();
+
+        // Check if the current user is authorized to edit the profile
+        if (!$currentUser->isAdmin() && $currentUser->id !== $userId) {
+            throw new AccessDeniedHttpException();
+        }
+
         // user validation
         /** @var UserInterface $user */
         $user = $this->retrieveUser($userId);
