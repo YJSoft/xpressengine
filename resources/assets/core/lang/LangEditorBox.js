@@ -24,7 +24,7 @@ class LangEditorBox {
     this.multiline = multiline
     this.lines = lines || []
     this.autocomplete = autocomplete
-    this.placeholder = placeholder
+    this.placeholder = placeholder || ''
     this.required = required
 
     var that = this
@@ -36,9 +36,6 @@ class LangEditorBox {
   }
 
   init () {
-
-
-
     if (this.langKey && this.lines.length === 0) {
       window.XE.ajax({
         type: 'get',
@@ -70,6 +67,13 @@ class LangEditorBox {
         }
       })
     }
+
+    this.$wrapper.on('focus', 'input, textarea', () => {
+      const $sub = this.$wrapper.find('.sub');
+      if ($sub.is(':hidden')) {
+        $sub.slideDown('fast');
+      }
+    });
   }
 
   render () {
@@ -121,12 +125,11 @@ class LangEditorBox {
   }
 
   setLines (lines) {
-    var _this = this
     this.lines = lines
 
-    window.XE.Lang.locales.map(function (locale) {
-      var selector = '#input-' + _this.seq + '-' + locale.code
-      var value = _this.getValueFromLinesWithLocale(locale.code)
+    config.getters['lang/locales'].forEach(locale => {
+      const selector = `#input-${this.seq}-${locale.code}`
+      const value = this.getValueFromLinesWithLocale(locale.code)
       $(selector).val(value)
     })
   }
@@ -193,7 +196,6 @@ window.langEditorBoxRender = function ($data, type) {
     var multiline = $data.data('multiline')
     var lines = $data.data('lines')
     var autocomplete = $data.data('autocomplete')
-
     new LangEditorBox({ $wrapper: $data, seq, name, langKey, multiline, lines, autocomplete })
   }
 
@@ -291,12 +293,3 @@ function renderLangEditorBox () {
     return true
   })
 }
-
-// @FIXME
-$(document).on('focus', '.lang-editor-box input, textarea', function () {
-  var box = $(this).closest('.lang-editor-box')
-  var el = box.find('.sub')
-  if ($(el).is(':hidden')) {
-    $(el).slideDown('fast')
-  }
-})
