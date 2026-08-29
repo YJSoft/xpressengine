@@ -11,7 +11,7 @@ on:
 jobs:
   upload-zip:
     name: Release v${{ inputs.version }} (PHP ${{ matrix.version }}${{ matrix.experimental && ', experimental' || '' }})
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
